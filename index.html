@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A — Attar & Perfume House</title>
+<style>
+:root{
+  --gold:#c79a4b;
+  --gold-dark:#9c7530;
+  --maroon:#3a0d12;
+  --bg:#faf6ee;
+  --bg-2:#f1e8d8;
+  --text:#241410;
+  --text-soft:#5a4a3f;
+  --card:#ffffff;
+  --border:#e3d7be;
+  --shadow: 0 10px 30px rgba(58,13,18,0.08);
+  --radius:14px;
+}
+html[data-theme="dark"]{
+  --bg:#161013;
+  --bg-2:#1f1418;
+  --text:#f1e6d8;
+  --text-soft:#cbb9a4;
+  --card:#221619;
+  --border:#3a262a;
+  --shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Georgia','Times New Roman',serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .35s ease,color .35s ease;
+}
+.font-ui{font-family:'Segoe UI',system-ui,sans-serif;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* ===== Top bar ===== */
+.topbar{
+  background:var(--maroon);
+  color:#f1e6d8;
+  font-size:13px;
+  text-align:center;
+  padding:6px 12px;
+  font-family:'Segoe UI',sans-serif;
+  letter-spacing:.5px;
+}
+
+/* ===== Header ===== */
+header{
+  position:sticky; top:0; z-index:50;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(6px);
+}
+.nav{
+  max-width:1180px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+}
+.logo{
+  font-size:26px;font-weight:700;letter-spacing:1px;
+  color:var(--gold-dark);
+  display:flex;align-items:center;gap:8px;
+}
+html[data-theme="dark"] .logo{color:var(--gold);}
+.logo span{font-size:13px;display:block;color:var(--text-soft);font-family:'Segoe UI',sans-serif;letter-spacing:3px;font-weight:400;}
+.navlinks{display:flex;gap:28px;font-family:'Segoe UI',sans-serif;font-size:15px;}
+.navlinks a{position:relative;padding:4px 0;color:var(--text);}
+.navlinks a:hover{color:var(--gold-dark);}
+html[data-theme="dark"] .navlinks a:hover{color:var(--gold);}
+.nav-actions{display:flex;align-items:center;gap:14px;}
+.icon-btn{
+  background:none;border:1px solid var(--border);
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text);font-size:16px;
+  transition:.2s;
+  position:relative;
+}
+.icon-btn:hover{border-color:var(--gold);background:var(--bg-2);}
+#cartCount{
+  position:absolute;top:-6px;right:-6px;
+  background:var(--gold-dark);color:#fff;
+  font-size:10px;font-family:'Segoe UI',sans-serif;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ===== Hero ===== */
+.hero{
+  max-width:1180px;margin:0 auto;
+  padding:70px 20px 60px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;
+}
+.hero-eyebrow{
+  font-family:'Segoe UI',sans-serif;letter-spacing:3px;font-size:12px;
+  color:var(--gold-dark);text-transform:uppercase;margin-bottom:14px;font-weight:600;
+}
+html[data-theme="dark"] .hero-eyebrow{color:var(--gold);}
+.hero h1{
+  font-size:48px;line-height:1.1;margin:0 0 18px;font-weight:700;
+}
+.hero h1 em{color:var(--gold-dark);font-style:normal;}
+html[data-theme="dark"] .hero h1 em{color:var(--gold);}
+.hero p{font-size:17px;color:var(--text-soft);line-height:1.7;max-width:460px;margin-bottom:28px;font-family:'Segoe UI',sans-serif;}
+.btn{
+  font-family:'Segoe UI',sans-serif;font-weight:600;font-size:14px;
+  padding:14px 30px;border-radius:30px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;letter-spacing:.4px;
+  transition:.25s;
+}
+.btn-primary{background:var(--maroon);color:#f1e6d8;}
+.btn-primary:hover{background:var(--gold-dark);}
+.btn-ghost{background:transparent;border:1.5px solid var(--text);color:var(--text);}
+.btn-ghost:hover{border-color:var(--gold-dark);color:var(--gold-dark);}
+.hero-visual{
+  background:radial-gradient(circle at 30% 20%, var(--bg-2), transparent 60%);
+  border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;height:380px;
+  border:1px solid var(--border);
+  overflow:hidden;
+}
+.bottle{
+  width:120px;height:220px;
+  background:linear-gradient(160deg,var(--gold) 0%,var(--gold-dark) 60%,#7a5a22 100%);
+  border-radius:16px 16px 36px 36px;
+  position:relative;
+  box-shadow:0 25px 50px rgba(0,0,0,0.25);
+  animation:float 4s ease-in-out infinite;
+}
+.bottle::before{
+  content:'';position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+  width:34px;height:40px;background:var(--maroon);border-radius:6px 6px 0 0;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.dot{position:absolute;border-radius:50%;background:var(--gold);opacity:.35;}
+
+/* ===== Section heading ===== */
+.section{max-width:1180px;margin:0 auto;padding:60px 20px;}
+.section-head{text-align:center;margin-bottom:42px;}
+.section-head .eyebrow{font-family:'Segoe UI',sans-serif;letter-spacing:3px;font-size:12px;color:var(--gold-dark);text-transform:uppercase;font-weight:600;}
+html[data-theme="dark"] .section-head .eyebrow{color:var(--gold);}
+.section-head h2{font-size:32px;margin:8px 0 0;}
+
+/* ===== Filters ===== */
+.filters{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;
+  font-family:'Segoe UI',sans-serif;
+}
+.filter-btn{
+  padding:8px 18px;border-radius:20px;border:1px solid var(--border);
+  background:var(--card);color:var(--text-soft);cursor:pointer;font-size:13px;
+  transition:.2s;
+}
+.filter-btn.active, .filter-btn:hover{background:var(--maroon);color:#f1e6d8;border-color:var(--maroon);}
+
+/* ===== Product grid ===== */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);transition:transform .25s, box-shadow .25s;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-6px);}
+.card-img{
+  height:210px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--bg-2),var(--bg));position:relative;
+}
+.card-img svg{height:150px;}
+.tag{
+  position:absolute;top:10px;left:10px;background:var(--maroon);color:#f1e6d8;
+  font-family:'Segoe UI',sans-serif;font-size:10px;padding:4px 10px;border-radius:20px;letter-spacing:.5px;
+}
+.card-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;font-family:'Segoe UI',sans-serif;}
+.card-cat{font-size:11px;color:var(--gold-dark);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+html[data-theme="dark"] .card-cat{color:var(--gold);}
+.card-title{font-family:Georgia,serif;font-size:18px;margin:0 0 6px;}
+.card-desc{font-size:13px;color:var(--text-soft);margin-bottom:12px;line-height:1.5;flex:1;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.price{font-size:17px;font-weight:700;color:var(--text);}
+.price small{font-size:12px;color:var(--text-soft);text-decoration:line-through;font-weight:400;margin-left:6px;}
+.add-btn{
+  background:var(--maroon);color:#f1e6d8;border:none;padding:9px 16px;border-radius:20px;
+  cursor:pointer;font-size:13px;font-weight:600;transition:.2s;
+}
+.add-btn:hover{background:var(--gold-dark);}
+.stars{color:var(--gold-dark);font-size:12px;margin-bottom:6px;}
+html[data-theme="dark"] .stars{color:var(--gold);}
+
+/* ===== Features ===== */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+@media(max-width:900px){.features{grid-template-columns:repeat(2,1fr);}}
+.feature{
+  text-align:center;padding:30px 18px;border-radius:var(--radius);
+  background:var(--card);border:1px solid var(--border);font-family:'Segoe UI',sans-serif;
+}
+.feature .ic{font-size:30px;margin-bottom:14px;}
+.feature h3{font-size:15px;margin:0 0 8px;}
+.feature p{font-size:13px;color:var(--text-soft);margin:0;line-height:1.5;}
+
+/* ===== Delivery section ===== */
+.delivery-wrap{
+  background:var(--bg-2);border-radius:24px;padding:50px;
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;
+}
+@media(max-width:800px){.delivery-wrap{grid-template-columns:1fr;padding:30px;}}
+.delivery-wrap h2{font-size:28px;margin:0 0 14px;}
+.delivery-wrap p{color:var(--text-soft);font-family:'Segoe UI',sans-serif;line-height:1.7;margin-bottom:20px;}
+.steps{list-style:none;margin:0;padding:0;font-family:'Segoe UI',sans-serif;}
+.steps li{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start;}
+.steps .num{
+  width:30px;height:30px;border-radius:50%;background:var(--maroon);color:#f1e6d8;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;
+}
+.steps b{display:block;font-size:14px;}
+.steps span{font-size:13px;color:var(--text-soft);}
+
+.track-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;
+  font-family:'Segoe UI',sans-serif;box-shadow:var(--shadow);
+}
+.track-card h3{margin:0 0 14px;font-size:16px;}
+.form-row{display:flex;gap:10px;margin-bottom:14px;}
+input,select,textarea{
+  width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;font-size:14px;
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold-dark);border-color:transparent;}
+.progress{display:flex;justify-content:space-between;margin-top:18px;position:relative;}
+.progress::before{content:'';position:absolute;top:9px;left:0;right:0;height:2px;background:var(--border);}
+.pstep{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:var(--text-soft);position:relative;z-index:1;flex:1;}
+.pstep .dotp{width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--border);}
+.pstep.done .dotp{background:var(--gold-dark);border-color:var(--gold-dark);}
+.pstep.done{color:var(--text);font-weight:600;}
+
+/* ===== Testimonials ===== */
+.testis{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:800px){.testis{grid-template-columns:1fr;}}
+.testi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;font-family:'Segoe UI',sans-serif;}
+.testi p{color:var(--text-soft);font-size:14px;line-height:1.6;margin-bottom:14px;}
+.testi .who{font-weight:700;font-size:14px;}
+.testi .role{font-size:12px;color:var(--text-soft);}
+
+/* ===== Newsletter ===== */
+.newsletter{
+  background:var(--maroon);color:#f1e6d8;border-radius:24px;padding:50px;
+  text-align:center;
+}
+.newsletter h2{font-size:28px;margin:0 0 10px;}
+.newsletter p{font-family:'Segoe UI',sans-serif;opacity:.85;margin-bottom:22px;}
+.news-form{display:flex;justify-content:center;gap:10px;max-width:440px;margin:0 auto;}
+.news-form input{border:none;}
+.news-form button{
+  background:var(--gold);color:#241410;border:none;padding:11px 22px;border-radius:10px;
+  font-weight:700;cursor:pointer;font-family:'Segoe UI',sans-serif;white-space:nowrap;
+}
+
+/* ===== Footer ===== */
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:50px 20px 24px;font-family:'Segoe UI',sans-serif;}
+.foot-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px;}
+@media(max-width:800px){.foot-grid{grid-template-columns:1fr 1fr;}}
+.foot-grid h4{font-size:14px;margin:0 0 14px;}
+.foot-grid ul{list-style:none;padding:0;margin:0;}
+.foot-grid li{margin-bottom:9px;font-size:13px;color:var(--text-soft);}
+.foot-grid li a:hover{color:var(--gold-dark);}
+.foot-bottom{max-width:1180px;margin:0 auto;border-top:1px solid var(--border);padding-top:18px;font-size:12px;color:var(--text-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+/* ===== Cart drawer ===== */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:.3s;z-index:90;}
+.overlay.open{opacity:1;visibility:visible;}
+.drawer{
+  position:fixed;top:0;right:-420px;width:400px;max-width:92vw;height:100%;
+  background:var(--card);z-index:91;transition:right .35s ease;
+  display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.2);
+  font-family:'Segoe UI',sans-serif;
+}
+.drawer.open{right:0;}
+.drawer-head{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.drawer-head h3{margin:0;font-family:Georgia,serif;}
+.drawer-items{flex:1;overflow-y:auto;padding:14px 20px;}
+.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);align-items:center;}
+.cart-item .ci-img{width:46px;height:70px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.cart-item .ci-img svg{height:60px;}
+.cart-item .ci-info{flex:1;}
+.cart-item .ci-info b{font-size:14px;display:block;}
+.cart-item .ci-info span{font-size:12px;color:var(--text-soft);}
+.qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.qty button{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:none;cursor:pointer;color:var(--text);}
+.remove-btn{font-size:11px;color:#b3402f;cursor:pointer;background:none;border:none;text-decoration:underline;}
+.drawer-foot{padding:18px 20px;border-top:1px solid var(--border);}
+.drawer-foot .row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;}
+.drawer-foot .total{font-weight:700;font-size:17px;}
+.empty-cart{text-align:center;padding:60px 20px;color:var(--text-soft);}
+
+.close-x{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text);}
+
+/* checkout modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:99;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:18px;max-width:480px;width:100%;padding:30px;font-family:'Segoe UI',sans-serif;max-height:90vh;overflow-y:auto;}
+.modal h3{font-family:Georgia,serif;margin:0 0 4px;}
+.modal .sub{color:var(--text-soft);font-size:13px;margin-bottom:20px;}
+.modal label{font-size:12px;color:var(--text-soft);display:block;margin-bottom:5px;margin-top:12px;}
+.success-box{text-align:center;padding:20px 0;}
+.success-box .check{font-size:50px;margin-bottom:10px;}
+
+/* toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--maroon);color:#f1e6d8;padding:13px 26px;border-radius:30px;
+  font-family:'Segoe UI',sans-serif;font-size:14px;opacity:0;visibility:hidden;transition:.3s;z-index:200;
+}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+
+.skip-link{position:absolute;left:-999px;}
+.skip-link:focus{left:10px;top:10px;background:var(--gold);padding:8px;border-radius:6px;z-index:999;}
+
+@media(max-width:900px){
+  .navlinks{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-visual{height:280px;}
+}
+#menuToggle{display:none;}
+.navlinks-mobile{
+  display:none;flex-direction:column;
+  max-width:1180px;margin:0 auto;padding:0 20px;
+  border-top:1px solid var(--border);
+}
+.navlinks-mobile a{padding:13px 4px;border-bottom:1px solid var(--border);font-size:15px;}
+.navlinks-mobile.open{display:flex;}
+@media(max-width:900px){
+  #menuToggle{display:flex;}
+}
+@media(max-width:600px){
+  .hero{padding:40px 16px 40px;}
+  .hero h1{font-size:32px;}
+  .hero p{font-size:15px;max-width:100%;}
+  .section{padding:40px 16px;}
+  .section-head h2{font-size:24px;}
+  .logo{font-size:20px;}
+  .logo span{font-size:10px;letter-spacing:2px;}
+  .topbar{font-size:11px;padding:8px 10px;}
+  .news-form{flex-direction:column;}
+  .news-form button{width:100%;}
+  .newsletter{padding:32px 20px;}
+  .newsletter h2{font-size:22px;}
+  .delivery-wrap{padding:24px 18px !important;}
+  .delivery-wrap h2{font-size:22px;}
+  .modal{padding:20px;}
+  .drawer-head{padding:16px;}
+  .drawer-items{padding:10px 16px;}
+  .drawer-foot{padding:14px 16px;}
+  .btn{padding:12px 22px;font-size:13px;}
+  .foot-grid{grid-template-columns:1fr;text-align:center;}
+  .foot-bottom{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="topbar">✨ Free delivery across Pakistan on orders above Rs. 2,500 — Cash on Delivery available</div>
+
+<header>
+  <div class="nav">
+    <div class="logo">🌸 A <span>ATTAR &amp; PERFUME HOUSE</span></div>
+    <nav class="navlinks">
+      <a href="#shop">Shop</a>
+      <a href="#features">Why A</a>
+      <a href="#delivery">Delivery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#footer">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn font-ui" id="menuToggle" title="Menu">☰</button>
+      <button class="icon-btn font-ui" id="themeToggle" title="Toggle dark/light mode">🌙</button>
+      <button class="icon-btn font-ui" id="cartBtn" title="View cart">🛍️<span id="cartCount">0</span></button>
+    </div>
+  </div>
+  <nav class="navlinks-mobile font-ui" id="mobileMenu">
+    <a href="#shop">Shop</a>
+    <a href="#features">Why A</a>
+    <a href="#delivery">Delivery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#footer">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Pure Attar · Long-Lasting Perfume · Since Karachi</div>
+    <h1>Fragrance is the <em>signature</em><br>you leave behind.</h1>
+    <p>Hand-blended oud, musk, and floral attars alongside premium long-lasting perfumes — crafted in small batches and delivered to your doorstep across Pakistan.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Collection</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('delivery').scrollIntoView({behavior:'smooth'})">Delivery Info</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="dot" style="width:140px;height:140px;top:10px;left:10px;"></div>
+    <div class="dot" style="width:80px;height:80px;bottom:20px;right:30px;"></div>
+    <div class="bottle"></div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="section" id="shop">
+  <div class="section-head">
+    <div class="eyebrow">The Collection</div>
+    <h2>Attars &amp; Perfumes</h2>
+  </div>
+  <div class="filters font-ui" id="filters">
+    <button class="filter-btn active" data-cat="all">All</button>
+    <button class="filter-btn" data-cat="Attar">Attar</button>
+    <button class="filter-btn" data-cat="Perfume">Perfume (Spray)</button>
+    <button class="filter-btn" data-cat="Oud">Oud</button>
+    <button class="filter-btn" data-cat="Gift">Gift Sets</button>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section-head">
+    <div class="eyebrow">Why Choose Us</div>
+    <h2>Crafted with care, delivered with trust</h2>
+  </div>
+  <div class="features">
+    <div class="feature"><div class="ic">🌿</div><h3>100% Pure Ingredients</h3><p>Alcohol-free attars made from natural oud, musk, and floral extracts.</p></div>
+    <div class="feature"><div class="ic">🚚</div><h3>Nationwide Delivery</h3><p>We deliver to every major city in Pakistan within 2–4 business days.</p></div>
+    <div class="feature"><div class="ic">💳</div><h3>Cash on Delivery</h3><p>Pay when your fragrance arrives — no online payment required.</p></div>
+    <div class="feature"><div class="ic">↩️</div><h3>Easy Exchange</h3><p>Unopened products can be exchanged within 7 days of delivery.</p></div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section class="section" id="delivery">
+  <div class="delivery-wrap" style="grid-template-columns:1fr;text-align:center;">
+    <div style="max-width:640px;margin:0 auto;">
+      <h2>How delivery works</h2>
+      <p>Every order is sealed, perfumed, and shipped within 24 hours, straight to your doorstep.</p>
+      <ul class="steps" style="text-align:left;display:inline-block;">
+        <li><div class="num">1</div><div><b>Order Placed</b><span>Confirmed by our team via call/SMS</span></div></li>
+        <li><div class="num">2</div><div><b>Packed &amp; Sealed</b><span>Bottle wrapped securely with bubble protection</span></div></li>
+        <li><div class="num">3</div><div><b>Out for Delivery</b><span>Handed to our rider/courier partner</span></div></li>
+        <li><div class="num">4</div><div><b>Delivered</b><span>Pay cash or via card on arrival</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="reviews">
+  <div class="section-head">
+    <div class="eyebrow">Customer Love</div>
+    <h2>What our customers say</h2>
+  </div>
+  <div class="testis">
+    <div class="testi"><div class="stars">★★★★★</div><p>"Mene bohat shops try ki thi lekin A ka Oud sab se different hai — khushboo halki nahi hoti, din bhar sath rehti hai. Ab to sirf yahin se order karta hun."</p><div class="who">Anus Raza</div><div class="role">Verified Buyer — Korangi, Karachi</div></div>
+    <div class="testi"><div class="stars">★★★★★</div><p>"Order karne se delivery tak sara process bohat smooth tha. Packing bhi mazboot thi, bottle bilkul theek halat me mili. Quality pe paisa wasool hai."</p><div class="who">Arsalan</div><div class="role">Verified Buyer — Korangi, Karachi</div></div>
+    <div class="testi"><div class="stars">★★★★★</div><p>"Apne bhai ke liye gift liya tha, usay bohat pasand aya. Ab dosron ko bhi recommend kar raha hun — asal attar yahi hai jo lambay time tak chalta hai."</p><div class="who">Abdul Samad</div><div class="role">Verified Buyer — Korangi, Karachi</div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section">
+  <div class="newsletter">
+    <h2>Get 10% off your first order</h2>
+    <p>Subscribe for new launches, seasonal attars, and exclusive discounts.</p>
+    <form class="news-form" onsubmit="subscribeNews(event)">
+      <input type="email" required placeholder="Enter your email">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer id="footer">
+  <div class="foot-grid">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">🌸 A</div>
+      <p style="color:var(--text-soft);font-size:13px;max-width:280px;line-height:1.6;">Premium attars &amp; perfumes, hand-blended in small batches and delivered fresh across Pakistan.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul><li><a href="#shop">Attars</a></li><li><a href="#shop">Perfumes</a></li><li><a href="#shop">Oud</a></li><li><a href="#shop">Gift Sets</a></li></ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul><li><a href="#delivery">Delivery Info</a></li><li><a href="#">Returns &amp; Exchange</a></li><li><a href="#">FAQs</a></li><li><a href="#">Contact Us</a></li></ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul><li>📞 0315-8630825</li><li>✉️ hello@a-attar.pk</li><li>📍 Karachi, Pakistan</li></ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2026 A — Attar & Perfume House. All rights reserved.</div>
+    <div>Made with ❤️ for fragrance lovers</div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Your Cart</h3>
+    <button class="close-x" id="closeCart">✕</button>
+  </div>
+  <div class="drawer-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="row"><span>Subtotal</span><span id="cartSubtotal">Rs. 0</span></div>
+    <div class="row"><span>Delivery</span><span id="cartDeliveryFee">Rs. 0</span></div>
+    <div class="row total"><span>Total</span><span id="cartTotal">Rs. 0</span></div>
+    <button class="btn btn-primary font-ui" style="width:100%;justify-content:center;margin-top:10px;" onclick="openCheckout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutOverlay">
+  <div class="modal" id="checkoutModalBody">
+    <h3>Delivery Details</h3>
+    <div class="sub">Fill in your details — pay cash on delivery or by card on arrival.</div>
+    <form id="checkoutForm" onsubmit="placeOrder(event)">
+      <label>Full Name</label>
+      <input type="text" required placeholder="Your name">
+      <label>Phone Number</label>
+      <input type="tel" required placeholder="03XX-XXXXXXX">
+      <label>Delivery Address</label>
+      <textarea required rows="2" placeholder="House #, Street, Area"></textarea>
+      <label>City</label>
+      <select required>
+        <option value="">Select city</option>
+        <option>Karachi</option><option>Lahore</option><option>Islamabad</option>
+        <option>Rawalpindi</option><option>Faisalabad</option><option>Multan</option>
+        <option>Peshawar</option><option>Quetta</option><option>Other</option>
+      </select>
+      <label>Payment Method</label>
+      <select required id="paymentMethod" onchange="togglePaymentFields()">
+        <option value="">Select payment method</option>
+        <option value="COD">Cash on Delivery</option>
+        <option value="Card">Card on Delivery</option>
+        <option value="JazzCash">JazzCash</option>
+        <option value="EasyPaisa">EasyPaisa</option>
+        <option value="Bank">Bank Transfer</option>
+      </select>
+
+      <div id="walletFields" style="display:none;">
+        <label id="walletLabel">Mobile Account Number</label>
+        <input type="tel" id="walletNumber" placeholder="03XX-XXXXXXX" pattern="03[0-9]{2}-?[0-9]{7}">
+        <p style="font-size:11px;color:var(--text-soft);margin:6px 0 0;">🔒 Demo flow only — you'll get an OTP popup like the real app to confirm payment.</p>
+      </div>
+
+      <button type="submit" class="btn btn-primary font-ui" style="width:100%;justify-content:center;margin-top:20px;" id="confirmBtn">Confirm Order</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- MOBILE MENU ---------- */
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+menuToggle.addEventListener('click', ()=>{
+  mobileMenu.classList.toggle('open');
+  menuToggle.textContent = mobileMenu.classList.contains('open') ? '✕' : '☰';
+});
+mobileMenu.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    mobileMenu.classList.remove('open');
+    menuToggle.textContent = '☰';
+  });
+});
+
+/* ---------- THEME ---------- */
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+function setTheme(t){
+  html.setAttribute('data-theme', t);
+  themeToggle.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('noor-theme', t);
+}
+setTheme(localStorage.getItem('noor-theme') || 'light');
+themeToggle.addEventListener('click', ()=>{
+  setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- PRODUCTS ---------- */
+const colors = ['#c79a4b','#7a3b2e','#9c7530','#5a2a3a','#3a5a3a','#6b4226','#8a6d3b','#4a3b6b'];
+const products = [
+  {id:1,name:'Royal Oud Attar',cat:'Attar',price:1800,old:2200,desc:'Deep, smoky oud blended with a hint of rose. Long-lasting roll-on attar.'},
+  {id:2,name:'Musk Al Lail',cat:'Attar',price:1500,old:null,desc:'Soft white musk attar, perfect for everyday wear.'},
+  {id:3,name:'Bahar-e-Gulab Spray',cat:'Perfume',price:2400,old:2900,desc:'Rose-forward eau de parfum with a fresh floral finish.'},
+  {id:4,name:'Black Oud Intense',cat:'Oud',price:3200,old:null,desc:'Bold, intense oud spray with leather and amber notes.'},
+  {id:5,name:'Saffron Amber Attar',cat:'Attar',price:1700,old:1950,desc:'Warm saffron and amber blend, ideal for winter evenings.'},
+  {id:6,name:'Jasmine A Perfume',cat:'Perfume',price:2100,old:null,desc:'Light jasmine eau de parfum, fresh and elegant.'},
+  {id:7,name:'Sultan Oud Gift Box',cat:'Gift',price:4500,old:5200,desc:'Premium oud attar + spray gift box, beautifully packed.'},
+  {id:8,name:'Sandalwood Mist',cat:'Attar',price:1600,old:null,desc:'Creamy sandalwood attar with a calming, woody base.'},
+  {id:9,name:'Mukhallat Al Sultan',cat:'Oud',price:2800,old:3300,desc:'Traditional Arabian mukhallat blend with spice and oud.'},
+  {id:10,name:'Lavender Breeze Spray',cat:'Perfume',price:1950,old:null,desc:'Calming lavender perfume spray for daily freshness.'},
+  {id:11,name:'Eid Gift Combo',cat:'Gift',price:5200,old:6000,desc:'Two attars + one perfume spray, gift-wrapped box.'},
+  {id:12,name:'Amber Musk Attar',cat:'Attar',price:1750,old:null,desc:'Sweet amber-musk fusion, a customer favourite.'},
+];
+
+const grid = document.getElementById('productGrid');
+
+function bottleSVG(cat, color, dark){
+  if(cat === 'Gift'){
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="15" y="35" width="70" height="50" rx="4" fill="${color}"/>
+      <rect x="15" y="35" width="70" height="14" fill="${dark}"/>
+      <rect x="46" y="35" width="8" height="50" fill="#f1e6d8" opacity=".7"/>
+      <rect x="15" y="42" width="70" height="6" fill="#f1e6d8" opacity=".7"/>
+      <circle cx="50" cy="38" r="6" fill="#f1e6d8" opacity=".9"/>
+    </svg>`;
+  }
+  if(cat === 'Perfume'){
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="38" y="8" width="24" height="10" rx="2" fill="${dark}"/>
+      <rect x="44" y="2" width="12" height="8" rx="2" fill="#888"/>
+      <path d="M32 20 h36 v8 a4 4 0 0 1 -4 4 h-28 a4 4 0 0 1 -4 -4 z" fill="${dark}"/>
+      <path d="M30 32 h40 a4 4 0 0 1 4 4 v46 a6 6 0 0 1 -6 6 h-36 a6 6 0 0 1 -6 -6 v-46 a4 4 0 0 1 4 -4 z" fill="${color}"/>
+      <rect x="34" y="50" width="32" height="16" rx="2" fill="#fdf8ee" opacity=".85"/>
+    </svg>`;
+  }
+  if(cat === 'Oud'){
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="42" y="6" width="16" height="12" fill="${dark}"/>
+      <path d="M34 18 h32 v10 a6 6 0 0 1 -2 4 c-3 3 -4 6 -4 11 v45 a6 6 0 0 1 -6 6 h-8 a6 6 0 0 1 -6 -6 v-45 c0 -5 -1 -8 -4 -11 a6 6 0 0 1 -2 -4 z" fill="${color}"/>
+      <rect x="38" y="55" width="24" height="14" rx="2" fill="#f1e6d8" opacity=".8"/>
+    </svg>`;
+  }
+  /* Attar roll-on bottle (default) */
+  return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect x="40" y="8" width="20" height="10" rx="2" fill="${dark}"/>
+    <rect x="36" y="16" width="28" height="8" rx="3" fill="#888"/>
+    <path d="M32 24 h36 a4 4 0 0 1 4 4 v52 a8 8 0 0 1 -8 8 h-28 a8 8 0 0 1 -8 -8 v-52 a4 4 0 0 1 4 -4 z" fill="${color}"/>
+    <rect x="36" y="48" width="28" height="18" rx="2" fill="#fdf8ee" opacity=".85"/>
+  </svg>`;
+}
+
+function renderProducts(filter='all'){
+  grid.innerHTML = '';
+  products.filter(p=>filter==='all'||p.cat===filter).forEach((p,i)=>{
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `
+      <div class="card-img">
+        ${p.old ? '<span class="tag">SALE</span>' : ''}
+        ${bottleSVG(p.cat, colors[i%colors.length], '#241410')}
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <h3 class="card-title">${p.name}</h3>
+        <div class="stars">★★★★★</div>
+        <p class="card-desc">${p.desc}</p>
+        <div class="card-foot">
+          <span style="font-size:12px;color:var(--text-soft);font-family:'Segoe UI',sans-serif;">Available now</span>
+          <button class="add-btn font-ui" onclick="addToCart(${p.id})">Add +</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+renderProducts();
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProducts(btn.dataset.cat);
+  });
+});
+
+/* ---------- CART ---------- */
+let cart = JSON.parse(localStorage.getItem('noor-cart')||'[]');
+const cartBtn = document.getElementById('cartBtn');
+const cartDrawer = document.getElementById('cartDrawer');
+const overlay = document.getElementById('overlay');
+const cartCount = document.getElementById('cartCount');
+
+function saveCart(){ localStorage.setItem('noor-cart', JSON.stringify(cart)); renderCart(); }
+
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const existing = cart.find(c=>c.id===id);
+  if(existing){ existing.qty++; } else { cart.push({...p, qty:1}); }
+  saveCart();
+  showToast(`${p.name} added to cart`);
+  openCart();
+}
+
+function changeQty(id, delta){
+  const item = cart.find(c=>c.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0) cart = cart.filter(c=>c.id!==id);
+  saveCart();
+}
+
+function removeItem(id){
+  cart = cart.filter(c=>c.id!==id);
+  saveCart();
+}
+
+function renderCart(){
+  const wrap = document.getElementById('cartItems');
+  const totalQty = cart.reduce((s,c)=>s+c.qty,0);
+  cartCount.textContent = totalQty;
+  if(cart.length===0){
+    wrap.innerHTML = '<div class="empty-cart">🛍️<br>Your cart is empty.<br>Add some fragrance!</div>';
+  } else {
+    wrap.innerHTML = cart.map((c,i)=>`
+      <div class="cart-item">
+        <div class="ci-img">${bottleSVG(c.cat, colors[c.id%colors.length], '#241410')}</div>
+        <div class="ci-info">
+          <b>${c.name}</b>
+          <span>${c.cat}</span>
+          <div class="qty">
+            <button onclick="changeQty(${c.id},-1)">−</button>
+            <span>${c.qty}</span>
+            <button onclick="changeQty(${c.id},1)">+</button>
+            <button class="remove-btn" onclick="removeItem(${c.id})">Remove</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  const subtotal = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const deliveryFee = subtotal===0 ? 0 : (subtotal>=2500 ? 0 : 200);
+  document.getElementById('cartSubtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+  document.getElementById('cartDeliveryFee').textContent = deliveryFee===0 ? 'FREE' : `Rs. ${deliveryFee}`;
+  document.getElementById('cartTotal').textContent = `Rs. ${(subtotal+deliveryFee).toLocaleString()}`;
+}
+renderCart();
+
+function openCart(){ cartDrawer.classList.add('open'); overlay.classList.add('open'); }
+function closeCartFn(){ cartDrawer.classList.remove('open'); overlay.classList.remove('open'); }
+cartBtn.addEventListener('click', openCart);
+document.getElementById('closeCart').addEventListener('click', closeCartFn);
+overlay.addEventListener('click', closeCartFn);
+
+/* ---------- CHECKOUT ---------- */
+const checkoutOverlay = document.getElementById('checkoutOverlay');
+function openCheckout(){
+  if(cart.length===0){ showToast('Your cart is empty'); return; }
+  closeCartFn();
+  checkoutOverlay.classList.add('open');
+}
+
+function togglePaymentFields(){
+  const method = document.getElementById('paymentMethod').value;
+  const walletFields = document.getElementById('walletFields');
+  const walletLabel = document.getElementById('walletLabel');
+  const walletNumber = document.getElementById('walletNumber');
+  const confirmBtn = document.getElementById('confirmBtn');
+  if(method === 'JazzCash' || method === 'EasyPaisa'){
+    walletFields.style.display = 'block';
+    walletLabel.textContent = method + ' Account Number';
+    walletNumber.required = true;
+    confirmBtn.textContent = method === 'JazzCash' ? 'Pay with JazzCash' : 'Pay with EasyPaisa';
+  } else {
+    walletFields.style.display = 'none';
+    walletNumber.required = false;
+    confirmBtn.textContent = 'Confirm Order';
+  }
+}
+
+function placeOrder(e){
+  e.preventDefault();
+  const method = document.getElementById('paymentMethod').value;
+  if(method === 'JazzCash' || method === 'EasyPaisa'){
+    runWalletPaymentDemo(method);
+  } else {
+    completeOrder();
+  }
+}
+
+function runWalletPaymentDemo(method){
+  const num = document.getElementById('walletNumber').value || '03XX-XXXXXXX';
+  const color = method === 'JazzCash' ? '#e2231a' : '#5cb85c';
+  document.getElementById('checkoutModalBody').innerHTML = `
+    <div class="success-box">
+      <div style="width:60px;height:60px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 16px;font-family:'Segoe UI',sans-serif;">${method==='JazzCash'?'JC':'EP'}</div>
+      <h3>${method} Payment</h3>
+      <p class="sub">Sending payment request to ${num}...</p>
+      <div style="width:36px;height:36px;border:4px solid var(--border);border-top-color:${color};border-radius:50%;margin:14px auto;animation:spin 1s linear infinite;"></div>
+      <p style="font-size:12px;color:var(--text-soft);">Demo simulation — no real money is charged.</p>
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
+  setTimeout(()=>{
+    document.getElementById('checkoutModalBody').innerHTML = `
+      <div class="success-box">
+        <div class="check">📲</div>
+        <h3>Approve on your ${method} app</h3>
+        <p class="sub">A request has been sent to ${num}. Enter the OTP shown on your phone to confirm.</p>
+        <input type="text" id="otpInput" maxlength="6" placeholder="Enter 6-digit OTP" style="text-align:center;letter-spacing:4px;font-size:18px;margin-top:10px;">
+        <button class="btn btn-primary font-ui" style="width:100%;justify-content:center;margin-top:16px;" onclick="confirmWalletOtp('${method}')">Verify &amp; Pay</button>
+      </div>`;
+  }, 1800);
+}
+
+function confirmWalletOtp(method){
+  const otp = document.getElementById('otpInput').value.trim();
+  if(otp.length < 4){ showToast('Please enter a valid OTP'); return; }
+  document.getElementById('checkoutModalBody').innerHTML = `
+    <div class="success-box">
+      <div style="width:36px;height:36px;border:4px solid var(--border);border-top-color:var(--gold-dark);border-radius:50%;margin:14px auto;animation:spin 1s linear infinite;"></div>
+      <p class="sub">Confirming payment with ${method}...</p>
+    </div>`;
+  setTimeout(()=>completeOrder(method), 1500);
+}
+
+function completeOrder(paidVia){
+  const orderId = 'NR-' + Math.floor(1000+Math.random()*9000);
+  const paidMsg = paidVia ? `Paid successfully via ${paidVia}. ` : '';
+  document.getElementById('checkoutModalBody').innerHTML = `
+    <div class="success-box">
+      <div class="check">✅</div>
+      <h3>Order Placed Successfully!</h3>
+      <p class="sub">${paidMsg}Your order ID is <b>${orderId}</b>. Save it to track your delivery.</p>
+      <button class="btn btn-primary font-ui" style="margin-top:10px;" onclick="finishOrder()">Continue Shopping</button>
+    </div>`;
+  cart = [];
+  saveCart();
+}
+function finishOrder(){
+  checkoutOverlay.classList.remove('open');
+  location.reload();
+}
+checkoutOverlay.addEventListener('click', (e)=>{ if(e.target===checkoutOverlay) checkoutOverlay.classList.remove('open'); });
+
+/* ---------- NEWSLETTER ---------- */
+function subscribeNews(e){
+  e.preventDefault();
+  showToast('Subscribed! Check your inbox for the discount code 🎉');
+  e.target.reset();
+}
+
+/* ---------- TOAST ---------- */
+let toastTimer;
+function showToast(text){
+  const t = document.getElementById('toast');
+  t.textContent = text;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
