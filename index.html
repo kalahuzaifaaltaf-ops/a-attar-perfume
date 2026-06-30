@@ -18,15 +18,86 @@
   --shadow: 0 10px 30px rgba(58,13,18,0.08);
   --radius:14px;
 }
+/* ===== THEMES ===== */
 html[data-theme="dark"]{
-  --bg:#161013;
-  --bg-2:#1f1418;
-  --text:#f1e6d8;
-  --text-soft:#cbb9a4;
-  --card:#221619;
-  --border:#3a262a;
-  --shadow: 0 10px 30px rgba(0,0,0,0.45);
+  --gold:#c79a4b;--gold-dark:#c79a4b;--maroon:#3a0d12;
+  --bg:#161013;--bg-2:#1f1418;--text:#f1e6d8;--text-soft:#cbb9a4;
+  --card:#221619;--border:#3a262a;--shadow:0 10px 30px rgba(0,0,0,0.45);
 }
+html[data-theme="emerald"]{
+  --gold:#2ecc71;--gold-dark:#27ae60;--maroon:#1a5c38;
+  --bg:#f0faf4;--bg-2:#d5f0e0;--text:#0d2b1a;--text-soft:#3a6b50;
+  --card:#ffffff;--border:#b2dfc5;--shadow:0 10px 30px rgba(26,92,56,0.08);
+}
+html[data-theme="emerald-dark"]{
+  --gold:#2ecc71;--gold-dark:#27ae60;--maroon:#1a5c38;
+  --bg:#0d1f15;--bg-2:#162b1e;--text:#d5f0e0;--text-soft:#7abf9a;
+  --card:#0f2418;--border:#1e4a2c;--shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+html[data-theme="purple"]{
+  --gold:#9b59b6;--gold-dark:#7d3c98;--maroon:#4a1a6b;
+  --bg:#faf6ff;--bg-2:#ede0fa;--text:#1e0a2e;--text-soft:#6c3f8c;
+  --card:#ffffff;--border:#d9c0f0;--shadow:0 10px 30px rgba(74,26,107,0.08);
+}
+html[data-theme="purple-dark"]{
+  --gold:#c39bd3;--gold-dark:#9b59b6;--maroon:#4a1a6b;
+  --bg:#130820;--bg-2:#1e1030;--text:#ede0fa;--text-soft:#b39dcc;
+  --card:#1a0e28;--border:#3a2055;--shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+html[data-theme="ocean"]{
+  --gold:#2980b9;--gold-dark:#1a6ea8;--maroon:#0d3b6b;
+  --bg:#f0f8ff;--bg-2:#d6eaf8;--text:#0a1f3a;--text-soft:#2c6497;
+  --card:#ffffff;--border:#aed6f1;--shadow:0 10px 30px rgba(13,59,107,0.08);
+}
+html[data-theme="ocean-dark"]{
+  --gold:#5dade2;--gold-dark:#2980b9;--maroon:#0d3b6b;
+  --bg:#071828;--bg-2:#0d2438;--text:#d6eaf8;--text-soft:#7fb3d3;
+  --card:#0a1e30;--border:#1a3a58;--shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+html[data-theme="rose"]{
+  --gold:#e91e8c;--gold-dark:#c0166e;--maroon:#7a0040;
+  --bg:#fff5f9;--bg-2:#ffe0ef;--text:#2e0018;--text-soft:#8c3060;
+  --card:#ffffff;--border:#f0b8d5;--shadow:0 10px 30px rgba(122,0,64,0.08);
+}
+html[data-theme="rose-dark"]{
+  --gold:#f06292;--gold-dark:#e91e8c;--maroon:#7a0040;
+  --bg:#1a0010;--bg-2:#260016;--text:#ffe0ef;--text-soft:#c07090;
+  --card:#200012;--border:#4a0028;--shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+/* ===== Theme Switcher Panel ===== */
+.theme-fab{
+  position:fixed;bottom:30px;right:20px;z-index:150;
+  background:var(--maroon);color:#f1e6d8;
+  width:48px;height:48px;border-radius:50%;
+  border:none;cursor:pointer;font-size:20px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.3);
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;
+}
+.theme-fab:hover{transform:scale(1.1);}
+.theme-panel{
+  position:fixed;bottom:90px;right:20px;z-index:150;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:18px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  font-family:'Segoe UI',sans-serif;
+  width:240px;
+  display:none;
+  flex-direction:column;gap:10px;
+}
+.theme-panel.open{display:flex;}
+.theme-panel h4{margin:0 0 6px;font-size:13px;color:var(--text-soft);letter-spacing:1px;text-transform:uppercase;}
+.theme-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.swatch{
+  width:36px;height:36px;border-radius:50%;border:3px solid transparent;
+  cursor:pointer;transition:.2s;
+}
+.swatch:hover,.swatch.active{border-color:var(--text);transform:scale(1.15);}
+.theme-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;border:1px solid var(--border);}
+.theme-row:hover{background:var(--bg-2);}
+.theme-row.active{border-color:var(--gold-dark);background:var(--bg-2);}
+.theme-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;}
+.theme-label{font-size:13px;color:var(--text);}
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
 body{
@@ -569,6 +640,13 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:50px 20
   </div>
 </div>
 
+<!-- THEME SWITCHER -->
+<button class="theme-fab" id="themeFab" title="Change Theme">🎨</button>
+<div class="theme-panel" id="themePanel">
+  <h4>🎨 Choose Theme</h4>
+  <div id="themeList"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -586,18 +664,68 @@ mobileMenu.querySelectorAll('a').forEach(a=>{
   });
 });
 
-/* ---------- THEME ---------- */
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-function setTheme(t){
-  html.setAttribute('data-theme', t);
-  themeToggle.textContent = t === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('noor-theme', t);
+/* ---------- MULTI-THEME SYSTEM ---------- */
+const themes = [
+  {id:'light',   label:'Gold & Maroon (Light)', dot:'#c79a4b', bg:'#faf6ee'},
+  {id:'dark',    label:'Gold & Maroon (Dark)',  dot:'#c79a4b', bg:'#161013'},
+  {id:'emerald', label:'Emerald Green (Light)', dot:'#2ecc71', bg:'#f0faf4'},
+  {id:'emerald-dark', label:'Emerald Green (Dark)', dot:'#27ae60', bg:'#0d1f15'},
+  {id:'purple',  label:'Royal Purple (Light)',  dot:'#9b59b6', bg:'#faf6ff'},
+  {id:'purple-dark',  label:'Royal Purple (Dark)',  dot:'#c39bd3', bg:'#130820'},
+  {id:'ocean',   label:'Ocean Blue (Light)',    dot:'#2980b9', bg:'#f0f8ff'},
+  {id:'ocean-dark',   label:'Ocean Blue (Dark)',    dot:'#5dade2', bg:'#071828'},
+  {id:'rose',    label:'Rose Pink (Light)',     dot:'#e91e8c', bg:'#fff5f9'},
+  {id:'rose-dark',    label:'Rose Pink (Dark)',     dot:'#f06292', bg:'#1a0010'},
+];
+
+function applyTheme(id){
+  document.documentElement.setAttribute('data-theme', id);
+  localStorage.setItem('noor-theme', id);
+  // update dark/light emoji in header
+  const isDark = id.includes('dark');
+  themeToggle.textContent = isDark ? '☀️' : '🌙';
+  // update active states
+  document.querySelectorAll('.theme-row').forEach(r=>{
+    r.classList.toggle('active', r.dataset.tid === id);
+  });
 }
-setTheme(localStorage.getItem('noor-theme') || 'light');
-themeToggle.addEventListener('click', ()=>{
-  setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+
+// Build theme list
+const themeList = document.getElementById('themeList');
+themeList.innerHTML = themes.map(t=>`
+  <div class="theme-row" data-tid="${t.id}" onclick="applyTheme('${t.id}')">
+    <div class="theme-dot" style="background:${t.dot};box-shadow:0 0 0 3px ${t.bg};"></div>
+    <span class="theme-label">${t.label}</span>
+  </div>`).join('');
+
+// FAB toggle
+const themeFab = document.getElementById('themeFab');
+const themePanel = document.getElementById('themePanel');
+themeFab.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  themePanel.classList.toggle('open');
 });
+document.addEventListener('click', (e)=>{
+  if(!themePanel.contains(e.target) && e.target !== themeFab){
+    themePanel.classList.remove('open');
+  }
+});
+
+// Header dark/light toggle — now just toggles dark variant of current theme
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', ()=>{
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  let next;
+  if(cur.includes('dark')){
+    next = cur === 'dark' ? 'light' : cur.replace('-dark','');
+  } else {
+    next = cur === 'light' ? 'dark' : cur + '-dark';
+  }
+  applyTheme(next);
+});
+
+// Load saved theme
+applyTheme(localStorage.getItem('noor-theme') || 'light');
 
 /* ---------- PRODUCTS ---------- */
 const colors = ['#c79a4b','#7a3b2e','#9c7530','#5a2a3a','#3a5a3a','#6b4226','#8a6d3b','#4a3b6b'];
